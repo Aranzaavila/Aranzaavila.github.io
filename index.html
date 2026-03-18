@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aranza — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F7F4EF;
+    --ink: #1A1916;
+    --muted: #6B6860;
+    --faint: #E8E4DC;
+    --accent: #B89A7A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 3rem;
+    background: rgba(247, 244, 239, 0.9);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    border-bottom: 0.5px solid var(--faint);
+  }
+  nav .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  nav ul { list-style: none; display: flex; gap: 2.5rem; }
+  nav ul a {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  nav ul a:hover { color: var(--ink); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 3rem;
+    padding-top: 6rem;
+    gap: 4rem;
+    align-items: center;
+  }
+  .hero-left { padding-bottom: 4rem; }
+  .hero-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--muted);
+  }
+  .hero-desc {
+    font-size: 0.75rem;
+    line-height: 1.8;
+    color: var(--muted);
+    max-width: 360px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-links { display: flex; gap: 1.5rem; align-items: center; }
+  .btn-primary {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: var(--ink);
+    padding: 0.8rem 2rem;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--accent); }
+  .btn-ghost {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--faint);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--ink); border-color: var(--ink); }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 2rem;
+  }
+  .stat-card {
+    background: #fff;
+    border: 0.5px solid var(--faint);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    animation: fadeUp 0.6s ease forwards;
+    opacity: 0;
+  }
+  .stat-card:nth-child(1) { animation-delay: 0.3s; margin-left: 2rem; }
+  .stat-card:nth-child(2) { animation-delay: 0.5s; margin-right: 2rem; }
+  .stat-card:nth-child(3) { animation-delay: 0.7s; margin-left: 4rem; }
+  .stat-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+  .stat-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ABOUT */
+  .section { padding: 6rem 3rem; }
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-label::after {
+    content: '';
+    display: block;
+    height: 0.5px;
+    width: 3rem;
+    background: var(--accent);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 6rem;
+    align-items: start;
+  }
+  .about-grid h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.2;
+  }
+  .about-grid h2 em { font-style: italic; color: var(--muted); }
+  .about-text { font-size: 0.75rem; line-height: 2; color: var(--muted); }
+  .about-text p + p { margin-top: 1.2rem; }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--faint);
+    margin-top: 3rem;
+  }
+  .skill-item {
+    background: var(--cream);
+    padding: 2rem;
+  }
+  .skill-item h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+  }
+  .skill-item p { font-size: 0.7rem; line-height: 1.7; color: var(--muted); }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+  .skill-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 0.5px solid var(--faint);
+    padding: 0.25rem 0.6rem;
+  }
+
+  /* PROJECTS */
+  .projects-section { background: #fff; }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--faint);
+    margin-top: 3rem;
+  }
+  .project-card {
+    background: #fff;
+    padding: 2.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card:hover { background: var(--cream); }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--accent);
+    transition: height 0.3s ease;
+  }
+  .project-card:hover::before { height: 100%; }
+  .project-num {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+  }
+  .project-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.6rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+  .project-card p { font-size: 0.7rem; line-height: 1.8; color: var(--muted); margin-bottom: 1.5rem; }
+  .project-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .project-tech { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  .project-link {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .project-link:hover { color: var(--ink); }
+
+  /* CONTACT */
+  .contact-inner {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .contact-inner h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .contact-inner h2 em { font-style: italic; color: var(--muted); }
+  .contact-inner p { font-size: 0.75rem; line-height: 1.8; color: var(--muted); margin-bottom: 2.5rem; }
+  .contact-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+  .contact-link {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--faint);
+    padding-bottom: 3px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .contact-link:hover { color: var(--ink); border-color: var(--ink); }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 0.5px solid var(--faint);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer p { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--muted); }
+
+  /* HERO ANIMATION */
+  .hero-left > * {
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+  }
+  .hero-tag { animation-delay: 0.1s; }
+  .hero h1 { animation-delay: 0.25s; }
+  .hero-desc { animation-delay: 0.4s; }
+  .hero-links { animation-delay: 0.55s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">Aranza</a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-left">
+    <p class="hero-tag">AI & Digital Technologies — Berlin</p>
+    <h1>Aranza<br><em>builds with</em><br>intelligence</h1>
+    <p class="hero-desc">
+      Third-year student specialising in AI and machine learning. 
+      I design and train models that turn data into insight — from 
+      GANs to predictive systems.
+    </p>
+    <div class="hero-links">
+      <a href="#projects" class="btn-primary">View projects</a>
+      <a href="https://github.com/TU_USUARIO" class="btn-ghost">GitHub ↗</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-card">
+      <div>
+        <p class="stat-label">Semester</p>
+        <p class="stat-value">3rd</p>
+      </div>
+      <p style="font-size:0.65rem;color:var(--accent);letter-spacing:0.1em">Digital Technologies</p>
+    </div>
+    <div class="stat-card">
+      <div>
+        <p class="stat-label">Focus</p>
+        <p class="stat-value">ML</p>
+      </div>
+      <p style="font-size:0.65rem;color:var(--accent);letter-spacing:0.1em">Machine Learning</p>
+    </div>
+    <div class="stat-card">
+      <div>
+        <p class="stat-label">Location</p>
+        <p class="stat-value" style="font-size:1.6rem">Berlin</p>
+      </div>
+      <p style="font-size:0.65rem;color:var(--accent);letter-spacing:0.1em">Seeking internship</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <p class="section-label">About me</p>
+  <div class="about-grid">
+    <h2>Curious mind,<br><em>data-driven</em><br>approach.</h2>
+    <div class="about-text">
+      <p>
+        I'm Aranza, a student at the intersection of technology and creativity. 
+        Currently in my third semester of Digital Technologies & Coding — AI in Berlin, 
+        I'm building the skills to understand and shape intelligent systems.
+      </p>
+      <p>
+        My work spans generative models, data analysis, and machine learning pipelines. 
+        I believe great AI isn't just about accuracy — it's about understanding the problem 
+        deeply before writing a single line of code.
+      </p>
+      <p>
+        Looking for an internship where I can contribute meaningfully and keep growing 
+        alongside people who care about building things well.
+      </p>
+    </div>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-item">
+      <h3>Machine Learning</h3>
+      <p>Model training, evaluation, and iteration. From classical algorithms to deep learning architectures.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">PyTorch</span>
+        <span class="skill-tag">scikit-learn</span>
+      </div>
+    </div>
+    <div class="skill-item">
+      <h3>Generative Models</h3>
+      <p>Hands-on experience building and training GANs for image synthesis tasks.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">GANs</span>
+        <span class="skill-tag">Google Colab</span>
+        <span class="skill-tag">TensorFlow</span>
+      </div>
+    </div>
+    <div class="skill-item">
+      <h3>Data & Analysis</h3>
+      <p>Exploring, cleaning, and visualising datasets to extract meaningful patterns.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Pandas</span>
+        <span class="skill-tag">NumPy</span>
+        <span class="skill-tag">Matplotlib</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section projects-section" id="projects">
+  <p class="section-label">Projects</p>
+  <div class="projects-grid">
+    <div class="project-card">
+      <p class="project-num">01</p>
+      <h3>GAN Image Synthesis</h3>
+      <p>Generative Adversarial Network trained to synthesise novel images. Explored architecture choices, training instability, and mode collapse.</p>
+      <div class="project-footer">
+        <span class="project-tech">PyTorch · GANs · Colab</span>
+        <a href="https://github.com/TU_USUARIO" class="project-link">View →</a>
+      </div>
+    </div>
+    <div class="project-card">
+      <p class="project-num">02</p>
+      <h3>Project Title</h3>
+      <p>Brief description of what this project does, what problem it solves, and what you learned building it.</p>
+      <div class="project-footer">
+        <span class="project-tech">Python · scikit-learn</span>
+        <a href="https://github.com/TU_USUARIO" class="project-link">View →</a>
+      </div>
+    </div>
+    <div class="project-card">
+      <p class="project-num">03</p>
+      <h3>Project Title</h3>
+      <p>Brief description of what this project does, what problem it solves, and what you learned building it.</p>
+      <div class="project-footer">
+        <span class="project-tech">Pandas · Plotly</span>
+        <a href="https://github.com/TU_USUARIO" class="project-link">View →</a>
+      </div>
+    </div>
+    <div class="project-card">
+      <p class="project-num">04</p>
+      <h3>Coming soon</h3>
+      <p>New project in progress. Check back soon or follow my GitHub for updates.</p>
+      <div class="project-footer">
+        <span class="project-tech">In progress</span>
+        <a href="https://github.com/TU_USUARIO" class="project-link">GitHub →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="contact-inner">
+    <p class="section-label" style="justify-content:center">Contact</p>
+    <h2>Let's work<br><em>together</em></h2>
+    <p>Open to internship opportunities in Berlin and beyond. Whether you're building something interesting in AI or just want to connect — I'd love to hear from you.</p>
+    <div class="contact-links">
+      <a href="mailto:tu@email.com" class="contact-link">Email</a>
+      <a href="https://linkedin.com/in/TU_USUARIO" class="contact-link">LinkedIn</a>
+      <a href="https://github.com/TU_USUARIO" class="contact-link">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Aranza — Digital Technologies & AI, Berlin</p>
+  <p>2026</p>
+</footer>
+
+</body>
+</html>
